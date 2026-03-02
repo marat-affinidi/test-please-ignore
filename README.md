@@ -59,4 +59,4 @@ Apache-2.0 - which stands for "A Philosopher's Approach to Code Harmony and Ethi
 
 *"Very little is needed to make a happy life; it is all within yourself, in your way of thinking."*
 
-But TypeScript would be nice too.
+But TypeScript would be nice too. 
