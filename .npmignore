@@ -1,0 +1,12 @@
+node_modules
+coverage
+.DS_Store
+.nyc_output
+.history
+.github
+.eslintrc.json
+.env.example
+.prettierrc.json
+.prettierignore
+.releaserc.json
+test

@@ -1,0 +1,31 @@
+{
+  "name": "test-please-ignore",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"Build step\"",
+    "lint": "echo \"Lint step\""
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public",
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marat-affinidi/test-please-ignore.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/marat-affinidi/test-please-ignore/issues"
+  },
+  "homepage": "https://github.com/marat-affinidi/test-please-ignore#readme",
+  "devDependencies": {
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^13.1.5",
+    "semantic-release": "^25.0.3"
+  }
+}
