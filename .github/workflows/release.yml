@@ -118,15 +118,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 
-      - name: Trigger publish workflow
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ steps.generate_token.outputs.token }}
-          script: |
-            const tagName = `v${{ steps.semantic.outputs.new_release_version }}`;
-            await github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'publish.yml',
-              ref: tagName
-            });
+  publish:
+    needs: release
+    if: needs.release.result == 'success'
+    uses: ./.github/workflows/publish.yml
+    permissions:
+      id-token: write
+      contents: write
