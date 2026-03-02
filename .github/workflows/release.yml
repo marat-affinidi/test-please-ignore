@@ -118,10 +118,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 
-  publish:
-    needs: release
-    if: needs.release.result == 'success'
-    uses: ./.github/workflows/publish.yml
-    permissions:
-      id-token: write
-      contents: write
+      - name: Trigger publish workflow via repository dispatch
+        if: success()
+        run: |
+          # Get the latest tag created by semantic-release
+          LATEST_TAG=$(git describe --tags --abbrev=0)
+          echo "Latest tag: $LATEST_TAG"
+          
+          # Trigger repository dispatch event
+          gh api repos/${{ github.repository }}/dispatches \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -f event_type="publish" \
+            -f client_payload[tag]="$LATEST_TAG"
+        env:
+          GH_TOKEN: ${{ steps.generate_token.outputs.token }}

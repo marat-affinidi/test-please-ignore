@@ -6,6 +6,8 @@ on:
       - 'v*'
   workflow_call:
   workflow_dispatch:
+  repository_dispatch:
+    types: [publish]
 
 permissions:
   id-token: write  # Required for OIDC
@@ -17,6 +19,8 @@ jobs:
     environment: publish
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.client_payload.tag || github.ref }}
 
       - uses: actions/setup-node@v4
         with:
