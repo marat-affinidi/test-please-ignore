@@ -42,8 +42,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run security audit
+      - name: Run security audit prod
         run: npm audit --level ${{ vars.AUDIT_LEVEL || 'medium' }} --omit dev
+      - name: Run security audit dev
+        run: npm audit --level ${{ vars.AUDIT_LEVEL_DEV || 'critical' }}
 
 
       - name: Run tests
