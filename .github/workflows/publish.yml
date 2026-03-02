@@ -8,34 +8,24 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  id-token: write
+  id-token: write  # Required for OIDC
+  contents: read
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    environment:
-      name: publish
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
-          fetch-depth: 0
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Publish to npm
-        run: npm publish --provenance --access public
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - run: npm publish
 
       - name: Create GitHub Release
         env:
