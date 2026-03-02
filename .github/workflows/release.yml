@@ -118,18 +118,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 
-      - name: Create GitHub Release
-        if: success()
-        run: |
-          # Get the latest tag created by semantic-release
-          LATEST_TAG=$(git describe --tags --abbrev=0)
-          echo "Creating GitHub Release for $LATEST_TAG"
-          
-          gh release create "$LATEST_TAG" \
-            --title "$LATEST_TAG" \
-            --generate-notes
-        env:
-          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+
 
       - name: Trigger publish workflow via repository dispatch
         if: success()
